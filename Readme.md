@@ -1,4 +1,4 @@
-# Hear Failur Prediction
+# Heart Failure Prediction
 
 In this project I trained and deployed a model to predict if someone will die of heart failure based on risk factors.
 
@@ -42,8 +42,10 @@ With AutoML I got an AUC of 0.92 which is pretty good. The Model is a VotingEnse
 but I could have Done a more extensive sweep of the Hyperparameter Space by giving it more time and disabling early stopping.
 
 
-![AutoML RunDetails widget](./img/a.png)
-![AutoML best model details](./img/b.png)
+![AutoML RunDetails widget](./RunDetailsWidget1.PNG)
+![AutoML RunDetails widget](./RunDetailsWidget2.PNG)
+
+![AutoML best model details](./Best_model_Run_Id_new.PNG)
 
 ## Hyperparameter Tuning
 What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
@@ -62,11 +64,21 @@ I could have improved the result by chosing a more complex model and doing a mor
 The trivial way to do it would be to start with a VotingEnsemble similar to the one chosen by AutoML as I already knew
 it worked well
 
-![Hyperdrive RunDetails widget](./img/a.png)
-![Hyperdrive best model details](./img/b.png)
+![Hyperdrive RunDetails widget](./Hyperdrive_RunDetails1.PNG)
+![Hyperdrive RunDetails widget](./Hyperdrive_RunDetails2.PNG)
+![Hyperdrive RunDetails widget](./Hyperdrive_RunDetails3.PNG)
+![Hyperdrive RunDetails widget](./Hyperdrive_RunDetails4.PNG)
+![Hyperdrive RunDetails widget](./Hyperdrive_RunDetails5.PNG)
+![Hyperdrive RunDetails widget](./Hyperdrive_RunDetails1.PNG)
+
+![Hyperdrive best model details](./Best_hypermodel.PNG)
 
 ## Model Deployment
 Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
+You can get all Info about how to query an Endpoint from the "Consume" Tab of the Endpoint:
+![Endpoint 1](./Endpoint_use1.PNG)
+With the sample Code from Consume Tab you can manipulate the data and query the endpoint like this:
+![Endpoint 2](./Endpoint_use2.PNG)
 
 ## Screen Recording
 https://vimeo.com/768688488
