@@ -1,0 +1,57 @@
+2022-11-08 13:45:16.672 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetOutput
+2022-11-08 13:45:16.697 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetOutput
+2022-11-08 13:45:16.717 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 13:45:16.862 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=144.9[ms]
+2022-11-08 13:45:16.910 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetOutput, HowEnded=Success, Duration=213.21[ms]
+2022-11-08 13:45:16.911 - INFO - 37759 - azureml.train.automl._model_download_utilities._log_activity:55 - ActivityStarted: DownloadModel
+2022-11-08 13:45:19.464 - INFO - 37759 - azureml.training.tabular.featurization.text.pretrained_text_dnn_transformer.horovod_initialized:65 - Horovod not found in current environment. Distribution via Horovod will be disabled.
+2022-11-08 13:45:22.302 - INFO - 37759 - azureml.automl.runtime.featurization.data_transformer.__init__:190 - Feature sweeping enabled: False
+2022-11-08 13:45:22.303 - INFO - 37759 - azureml.automl.runtime.featurization.data_transformer.__init__:191 - Feature sweeping timeout: 86400
+2022-11-08 13:45:25.307 - INFO - 37759 - azureml.train.automl._model_download_utilities._log_activity:89 - ActivityCompleted: Activity=DownloadModel, HowEnded=Success, Duration=8396.04[ms]
+2022-11-08 13:45:25.338 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetOutput, HowEnded=Success, Duration=8666.5[ms]
+2022-11-08 14:02:00.483 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetOutput
+2022-11-08 14:02:00.517 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetOutput
+2022-11-08 14:02:00.537 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:02:00.713 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=176.04[ms]
+2022-11-08 14:02:00.795 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetOutput, HowEnded=Success, Duration=278.42[ms]
+2022-11-08 14:02:00.796 - INFO - 37759 - azureml.train.automl._model_download_utilities._log_activity:55 - ActivityStarted: DownloadModel
+2022-11-08 14:02:01.550 - INFO - 37759 - azureml.automl.runtime.featurization.data_transformer.__init__:190 - Feature sweeping enabled: False
+2022-11-08 14:02:01.551 - INFO - 37759 - azureml.automl.runtime.featurization.data_transformer.__init__:191 - Feature sweeping timeout: 86400
+2022-11-08 14:02:01.644 - INFO - 37759 - azureml.train.automl._model_download_utilities._log_activity:89 - ActivityCompleted: Activity=DownloadModel, HowEnded=Success, Duration=848.11[ms]
+2022-11-08 14:02:01.645 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetOutput, HowEnded=Success, Duration=1162.13[ms]
+2022-11-08 14:05:29.591 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:05:29.614 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:05:29.747 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=132.99[ms]
+2022-11-08 14:05:30.861 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=1269.71[ms]
+2022-11-08 14:19:14.719 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:19:14.744 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:19:14.901 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=156.74[ms]
+2022-11-08 14:19:16.303 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=1583.68[ms]
+2022-11-08 14:19:54.259 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:19:54.279 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:19:54.400 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=121.04[ms]
+2022-11-08 14:19:55.193 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=933.63[ms]
+2022-11-08 14:32:51.896 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:32:51.919 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:32:52.063 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=143.61[ms]
+2022-11-08 14:32:52.909 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=1013.07[ms]
+2022-11-08 14:34:14.977 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:34:15.002 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:34:15.492 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=489.93[ms]
+2022-11-08 14:34:16.162 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=1184.95[ms]
+2022-11-08 14:34:51.034 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:34:51.057 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:34:51.204 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=147.18[ms]
+2022-11-08 14:34:51.950 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=915.51[ms]
+2022-11-08 14:35:23.009 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:35:23.026 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:35:23.170 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=144.28[ms]
+2022-11-08 14:35:24.431 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=1421.37[ms]
+2022-11-08 14:35:50.727 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:35:50.752 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:35:50.892 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=140.31[ms]
+2022-11-08 14:35:51.604 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=877.59[ms]
+2022-11-08 14:51:18.434 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: RegisterModel
+2022-11-08 14:51:18.458 - INFO - 37759 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2022-11-08 14:51:18.617 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=159.7[ms]
+2022-11-08 14:51:19.741 - INFO - 37759 - azureml.train.automl.run._log_activity:89 - ActivityCompleted: Activity=RegisterModel, HowEnded=Success, Duration=1307.28[ms]
