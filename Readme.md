@@ -36,6 +36,7 @@ I chose a timeout of 30min because my overall time for this project is limited. 
 the compute cluster as proposed in the exercises. As this is a classification problem I chose AUC which gives a good balance between False Positive and 
 False Negative predictions.
 
+
 ### Results
 What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 With AutoML I got an AUC of 0.92 which is pretty good. The Model is a VotingEnsemble with 11 voting models. I doubt that a much better result would have been realistic here 
@@ -46,6 +47,64 @@ but I could have Done a more extensive sweep of the Hyperparameter Space by givi
 ![AutoML RunDetails widget](./RunDetailsWidget2.PNG)
 
 ![AutoML best model details](./Best_model_Run_Id_new.PNG)
+
+## Result Update
+I had to rerun everything to comply with the request in the review because my workspace had already timed out.
+This time I got a ExtremeRandomTrees model with a StandardScalerWrapper which reached a AUC of 0.91285 so slightly worse than last time the Accuracy is 0.81586.
+The Hyperparameters are:
+- Data Transformation:
+```
+{
+    "class_name": "StandardScaler",
+    "module": "sklearn.preprocessing",
+    "param_args": [],
+    "param_kwargs": {
+        "with_mean": false,
+        "with_std": true
+    },
+    "prepared_kwargs": {},
+    "spec_class": "preproc"
+}
+```
+- Training Algorithm:
+```
+{
+    "class_name": "ExtraTreesClassifier",
+    "module": "sklearn.ensemble",
+    "param_args": [],
+    "param_kwargs": {
+        "bootstrap": false,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_features": null,
+        "min_samples_leaf": 0.01,
+        "min_samples_split": 0.056842105263157895,
+        "n_estimators": 200,
+        "oob_score": false
+    },
+    "prepared_kwargs": {},
+    "spec_class": "sklearn"
+}
+```
+
+## Result Update 2:
+I managed to get a Voting Ensemble again to comply with the review request to name the inner estimators and how their predictions are aggregated.
+AUC is 0.92091 and Accuracy 0.85287.
+
+The VotingEnsemble consists of the following estimators and respective weights with which their prediction is multiplied and then summed:
+
+| Inner Estimator | Ensemble weight |
+| :---: | :---: |
+| TruncatedSVDWrapper, ExtremeRandomTrees | 0.21428571428571427| 
+| StandardScalerWrapper, LightGBM | 0.07142857142857142 |
+| StandardScalerWrapper, ExtremeRandomTrees | 0.21428571428571427 |
+| MaxAbsScaler, RandomForest | 0.07142857142857142 |
+| StandardScalerWrapper, RandomForest | 0.07142857142857142 |
+| StandardScalerWrapper, XGBoostClassifier | 0.07142857142857142 |
+| MinMaxScaler, ExtremeRandomTrees | 0.07142857142857142 |
+| MinMaxScaler, ExtremeRandomTrees | 0.07142857142857142 |
+| StandardScalerWrapper, XGBoostClassifier | 0.07142857142857142 |
+| SparseNormalizer, RandomForest | 0.07142857142857142 |
 
 ## Hyperparameter Tuning
 What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
