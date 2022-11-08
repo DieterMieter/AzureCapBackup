@@ -1,63 +1,120 @@
-from sklearn.linear_model import LogisticRegression
+# +
 import argparse
 import os
-import numpy as np
-from sklearn.metrics import mean_squared_error
-import joblib
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
 import pandas as pd
-from azureml.core.run import Run
-from azureml.data.dataset_factory import TabularDatasetFactory
-from sklearn import metrics
+import numpy as np
+import sklearn
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import roc_auc_score
+
+import azureml.core
+from azureml.core import Workspace, Experiment, Run
+
+import joblib
+
+
+# -
+
+def get_x_y(data):
+    x_df = data.to_pandas_dataframe().dropna()
+    y_df = x_df.pop("DEATH_EVENT")
+    
+    return x_df, y_df
+
 
 def main():
-    # From consume Tab
-    subscription_id = 'd7f39349-a66b-446e-aba6-0053c2cf1c11'
-    resource_group = 'aml-quickstarts-214673'
-    workspace_name = 'quick-starts-ws-214673'
-
-    workspace = Workspace(subscription_id, resource_group, workspace_name)
-
-    dataset = Dataset.get_by_name(workspace, name='heartfailure-dds')
-    
-    ds = dataset.to_pandas_dataframe().dropna()
-    
-    object_columns = ds.select_dtypes(include=['object']).columns
-
-
-    labelencoder = LabelEncoder()
-    for col in object_columns:
-        ds[col] = labelencoder.fit_transform(ds[col])
-
-    y_data = ds.pop("DEATH_EVENT")
-    from sklearn.model_selection import train_test_split
-    x_train, x_test, y_train, y_test = train_test_split(ds, y_data, test_size=0.2, random_state=24)
-    run = Run.get_context()
-
     # Add arguments to script
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--C', type=float, default=1.0, help="indicates regularization")
-    parser.add_argument('--max_iter', type=int, default=100, help="Maximum number of iterations")
-
-    args = parser.parse_args()
-
-    run.log("Regularization Strength:", np.float(args.C))
-    run.log("Max iterations:", np.int(args.max_iter))
-
-    model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
-    accuracy = model.score(x_test, y_test)
-    #use model to predict probability that given y value is 1
-    y_pred_proba = model.predict_proba(x_test)[::,1]
-
-    #calculate AUC of model
-    auc = metrics.roc_auc_score(y_test, y_pred_proba)
-
-    run.log("AUC", np.float(auc))
-    os.makedirs('./outputs', exist_ok=True)
-    joblib.dump(value=model, filename='./outputs/hd-model.joblib') 
+    parser.add_argument('--bootstrap', type=bool, default=False, help="Whether bootstrap samples are used when building trees. If False, the whole dataset is used to build each tree.")
+    parser.add_argument('--max_depth', type=int, default=-1, help="The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.")
+    parser.add_argument('--max_features', type=str, default="", help="The number of features to consider when looking for the best split.")
+    parser.add_argument('--min_samples_leaf', type=int, default=1, help="The minimum number of samples required to be at a leaf node.")
+    parser.add_argument('--min_samples_split', type=int, default=2, help="The minimum number of samples required to split an internal node.")
+    parser.add_argument('--n_estimators', type=int, default=100, help="The number of trees in the forest.")
     
+    args, leftovers = parser.parse_known_args() #parser.parse_args()
+
+    if run.identity.startswith('OfflineRun'):
+        interactive_run.log("bootstrap:", np.str("Yes") if np.bool(args.bootstrap) else np.str("No"))
+        interactive_run.log("max_depth:", np.str("None") if np.int(args.max_depth) == -1 else np.int(args.max_depth))
+        interactive_run.log("max_features:", np.str("None") if args.max_features == "" else args.max_features)
+        interactive_run.log("min_samples_leaf:", np.int(args.min_samples_leaf))
+        interactive_run.log("min_samples_split:", np.int(args.min_samples_split))
+        interactive_run.log("n_estimators:", np.int(args.n_estimators))
+    else:
+        run.log("bootstrap:", np.str("Yes") if np.bool(args.bootstrap) else np.str("No"))
+        run.log("max_depth:", np.str("None") if np.int(args.max_depth) == -1 else np.int(args.max_depth))
+        run.log("max_features:", np.str("None") if args.max_features == "" else args.max_features)
+        run.log("min_samples_leaf:", np.int(args.min_samples_leaf))
+        run.log("min_samples_split:", np.int(args.min_samples_split))
+        run.log("n_estimators:", np.int(args.n_estimators))
+
+    model = RandomForestClassifier(bootstrap=args.bootstrap,
+                                   max_depth=None if np.int(args.max_depth) == -1 else np.int(args.max_depth),
+                                   max_features=None if args.max_features == "" else args.max_features,
+                                   min_samples_leaf=np.int(args.min_samples_leaf),
+                                   min_samples_split=np.int(args.min_samples_split),
+                                   n_estimators=np.int(args.n_estimators),
+                                   random_state=2653).fit(x_train, y_train)
+    
+    # Make predictions for the test set
+    y_pred_test = model.predict(x_test)
+
+    auc_weighted = roc_auc_score(y_test, y_pred_test, average="weighted")
+    
+    if run.identity.startswith('OfflineRun'):
+        interactive_run.log("AUC_weighted", np.float(auc_weighted))
+        interactive_run.complete()
+    else:
+        run.log("AUC_weighted", np.float(auc_weighted))
+    
+    # Save model as -pkl file to the outputs/ folder to use outside the script
+    OUTPUT_DIR='./outputs'
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    model_file_name = 'heart_failure_hyperdrive.pkl'
+    joblib.dump(value=model, filename=os.path.join(OUTPUT_DIR, model_file_name))
+
+    # Check library versions
+    print("SDK version:", azureml.core.VERSION)
+    print('The scikit-learn version is {}.'.format(sklearn.__version__))
+    print('The joblib version is {}.'.format(joblib.__version__))
+    print('The pandas version is {}.'.format(pd.__version__))
+    #print('The sklearn_pandas version is {}.'.format(sklearn_pandas.__version__))
+
+    # +
+    from azureml.core import Dataset
+
+    run = Run.get_context()
+
+    if run.identity.startswith('OfflineRun'):
+        ws = Workspace.from_config()
+
+        experiment_name = 'heart-failure-clinical-data'
+        experiment = Experiment(ws, experiment_name)
+
+        interactive_run = experiment.start_logging()
+    else:
+        ws = run.experiment.workspace
+
+
+    ds = Dataset.get_by_name(ws, name='Heart Failure Prediction')
+    # -
+
+    x, y = get_x_y(ds)
+
+    # +
+    from sklearn.model_selection import train_test_split
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, stratify=y, random_state=223)
+    x_train.reset_index(inplace=True, drop=True)
+    x_test.reset_index(inplace=True, drop=True)
+    y_train.reset_index(inplace=True, drop=True)
+    y_test.reset_index(inplace=True, drop=True)
+    # -
 
 if __name__ == '__main__':
     main()
